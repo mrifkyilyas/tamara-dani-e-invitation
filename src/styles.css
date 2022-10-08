@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Lora-italic';
+    src: url('./fonts/Lora-Italic-VariableFont_wght.ttf');
+}
+
+@font-face {
+    font-family: 'Lora';
+    src: url('./fonts/Lora-VariableFont_wght.ttf');
+}
+
+body {
+    background-color: black !important;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+}

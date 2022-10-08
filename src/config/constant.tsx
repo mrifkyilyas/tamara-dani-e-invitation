@@ -1,0 +1,1 @@
+export const API_SERVER = "https://nest-wedding-ticket-api.herokuapp.com/api/";
