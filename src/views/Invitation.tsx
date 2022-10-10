@@ -220,7 +220,7 @@ export function Invitation() {
                 </Text>
                 <FormControl width={"90%"}>
                   <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Nama Anda</FormLabel>
-                  <Input _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} placeholder='Masukan Nama' height={"50px"} fontSize="12" fontFamily={"Lora"} />
+                  <Input _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} value={data.name} height={"50px"} fontSize="12" fontFamily={"Lora"} isReadOnly/>
 
                   <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Saya akan menghadiri</FormLabel>
                   <Select focusBorderColor={"orange.800"} marginBottom={"10px"} bgColor={"whiteAlpha.900"} placeholder='Pilih' color={'#222222'} height={"50px"} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"} >

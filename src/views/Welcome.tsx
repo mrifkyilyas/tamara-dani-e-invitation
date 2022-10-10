@@ -27,10 +27,7 @@ import InvitationApi from '../api/invitation';
 import useAuth from './Auth';
 import { Loading } from './Loading';
 
-const capitalize = (s: string) => {
-  if (typeof s !== 'string') return ''
-  return s.charAt(0).toUpperCase() + s.slice(1)
-}
+
 
 const Welcome = () => {
   const { loading, found, data } = useAuth();
@@ -68,7 +65,7 @@ const Welcome = () => {
               Kepada,
             </Text>
             <Text color={'#222222'} fontSize="22" fontFamily={"Lora-italic"} fontWeight={"bold"} textColor={"orange.900"}>
-              {data?.name.split(" ").map((word) => capitalize(word)).join(" ")}
+              {data?.name}
             </Text >
           </Box>
         </VStack>
