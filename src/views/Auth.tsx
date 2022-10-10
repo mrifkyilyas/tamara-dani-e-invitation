@@ -3,6 +3,10 @@ import InvitationApi, { IInvitation } from '../api/invitation';
 import { NotFound } from './NotFound';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const capitalize = (s: string) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+}
 
 const useAuth = () => {
     const navigate = useNavigate();
@@ -27,6 +31,7 @@ const useAuth = () => {
             const response = await InvitationApi.detail(slug);
             if (response) {
                 setFound(true);
+                response.data.name = response.data.name.split(" ").map((word: string) => capitalize(word)).join(" ")
                 setData(response.data);
             } else {
                 navigate('/not-found');
