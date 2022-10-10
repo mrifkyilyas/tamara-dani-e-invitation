@@ -23,8 +23,6 @@ import {
   Textarea
 } from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons'
-import RightPatternHeader from './../assets/RightPatternHeader.svg';
-import LeftPatternHeader from './../assets/LeftPatternHeader.svg';
 import CenterPatternHeaderInvitation from './../assets/CenterPatternHeaderInvitation.svg';
 import Background from './../assets/Background.svg';
 import Logo from './../assets/Logo.svg';
@@ -48,12 +46,13 @@ import { useEffect, useState } from 'react';
 import useAuth from './Auth';
 import { Loading } from './Loading';
 import Countdown from 'react-countdown';
+import ProfileUndangan from '../config/profile-undangan';
 
 
 export function Invitation() {
 
   const { loading, found, data } = useAuth();
-  const hDay = new Date('31 December 2022 00:00 UTC+7');
+  const hDay = new Date(ProfileUndangan.hDay);
 
   return (
     loading ? <Loading /> :
@@ -112,18 +111,18 @@ export function Invitation() {
                   <Image src={Pengantin} borderRadius="10px" width={329} height={200} loading={"lazy"} fit={"cover"} />
                   <VStack>
                     <Text color={'#222222'} fontSize="18" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
-                      Tamara Indah Wijayanti
+                      {ProfileUndangan.pengantinWanita}
                     </Text >
                     <Text width={"90%"} color={'#222222'} fontSize="16" fontFamily={"Lora-italic"} textColor={"orange.900"}>
-                      Putri Kedua dari Bapak Prastowo Surtarno Sofyan dan Ibu Ami Avianti
+                      {ProfileUndangan.orangTuaWanita}
                     </Text >
                   </VStack>
                   <VStack>
                     <Text color={'#222222'} fontSize="18" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
-                      Muhammad Ramdani
+                      {ProfileUndangan.pengantinPria}
                     </Text >
                     <Text width={"90%"} color={'#222222'} fontSize="16" fontFamily={"Lora-italic"} textColor={"orange.900"}>
-                      Putra Pertama dari Bapak Husin Rodi dan Ibu Siti Nurdiyani
+                      {ProfileUndangan.orangTuaPria}
                     </Text >
                   </VStack>
                 </VStack>
@@ -134,7 +133,7 @@ export function Invitation() {
                 </Text >
                 <Countdown date={hDay} renderer={renderer} overtime={true} />,
                 <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
-                  Sabtu, 31 Desember 2022
+                  {ProfileUndangan.tanggalAkad}
                 </Text >
                 <Image src={VerticalLine} alt="Vertical Line" className="VerticalLine" />
                 <HStack justifyContent={"center"} flex={3} spacing={"20px"} color={'#222222'} fontSize="14" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
@@ -143,7 +142,7 @@ export function Invitation() {
                       Akad
                     </Text >
                     <Text>
-                      <TimeIcon marginBottom={1} /> 08.00 - 10.00 WIB
+                      <TimeIcon marginBottom={1} /> {ProfileUndangan.jamAkad}
                     </Text >
                   </VStack>
                   <Image src={HorizontalLine} alt="Horizontal Line" className="HorizontalLine" />
@@ -152,15 +151,17 @@ export function Invitation() {
                       Resepsi
                     </Text >
                     <Text>
-                      <TimeIcon marginBottom={1} /> 11.00 - 15.00 WIB
+                      <TimeIcon marginBottom={1} /> {ProfileUndangan.jamResepsi}
                     </Text >
                   </VStack>
                 </HStack>
                 <Image src={VerticalLine} alt="Vertical Line" className="VerticalLine" />
                 <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"orange.900"}>
-                  <b>Villa Dangau Arco</b>
+                  <b>{ProfileUndangan.tempatAcara}</b>
                   <br />
-                  Jl. Arco Raya No.1, Desa Pemagasari, Kec. Parung, Kabupaten Bogor, Jawa Barat 16330
+                  {
+                    ProfileUndangan.alamatAcara
+                  }
                 </Text >
                 <AspectRatio w={"328px"} h={"200px"} ratio={16 / 9}>
                   <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15858.328203960424!2d106.7335004!3d-6.4476704!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1621adb085e6d2ff!2sVilla%20dangau%20arco!5e0!3m2!1sen!2sid!4v1664959883737!5m2!1sen!2sid" loading="lazy" />
@@ -170,18 +171,18 @@ export function Invitation() {
                 <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"orange.900"}>
                   GALERI
                 </Text>
-                  <HStack>
-                    <VStack spacing={3}>
-                      <Image src={Image1} borderRadius="10px" loading={"lazy"} fit={"cover"} />
-                      <Image src={Image2} borderRadius="10px" loading={"lazy"} fit={"cover"} />
-                    </VStack>
-                    <VStack spacing={3}>
-                      <Image src={Image3} borderRadius="10px" loading={"lazy"} fit={"cover"} />
-                      <Image src={Image4} borderRadius="10px" loading={"lazy"} fit={"cover"} />
-                      <Image src={Image5} borderRadius="10px" loading={"lazy"} fit={"cover"} />
-                    </VStack>
+                <HStack>
+                  <VStack spacing={3}>
+                    <Image src={Image1} borderRadius="10px" loading={"lazy"} fit={"cover"} />
+                    <Image src={Image2} borderRadius="10px" loading={"lazy"} fit={"cover"} />
+                  </VStack>
+                  <VStack spacing={3}>
+                    <Image src={Image3} borderRadius="10px" loading={"lazy"} fit={"cover"} />
+                    <Image src={Image4} borderRadius="10px" loading={"lazy"} fit={"cover"} />
+                    <Image src={Image5} borderRadius="10px" loading={"lazy"} fit={"cover"} />
+                  </VStack>
 
-                  </HStack>
+                </HStack>
 
               </VStack>
 
@@ -209,45 +210,6 @@ export function Invitation() {
                 </VStack>
 
               </VStack>
-              <VStack spacing={"4"} minWidth={"90%"}>
-                <Text minW={"80%"} fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"orange.900"}>
-                  RSVP
-                </Text>
-                <FormControl>
-                  <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Saya akan menghadiri</FormLabel>
-                  <Select focusBorderColor={"orange.800"} marginBottom={"10px"} bgColor={"whiteAlpha.900"} placeholder='Pilih' color={'#222222'} height={"50px"} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>
-                    <option>Ya</option>
-                    <option>Tidak</option>
-                  </Select>
-
-                  <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Berapa orang yang akan datang</FormLabel>
-                  <Select focusBorderColor={"orange.800"} marginBottom={"25px"} bgColor={"whiteAlpha.900"} placeholder='Pilih' color={'#222222'} height={"50px"} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                  </Select>
-                  <Button
-                    bgColor={"orange.900"}
-                    borderRadius={"40px"}
-                    color={"whiteAlpha.900"}
-                    variant="solid"
-                    width={"100%"}
-                    height={"50px"}
-                    fontSize="12"
-                    fontFamily={"Lora"}
-                    _hover={{
-                      bg: 'orange.800',
-                      color: 'whiteAlpha.900'
-                    }}
-                    _active={{
-                      bg: 'orange.700',
-                      transform: 'scale(0.95)',
-                      color: 'whiteAlpha.900'
-                    }}
-                  >
-                    Kirim RSVP </Button>
-                </FormControl>
-              </VStack>
               <VStack spacing={"4"}>
                 <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"orange.900"}>
                   UCAPAN & DOA
@@ -259,10 +221,18 @@ export function Invitation() {
                   <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Nama Anda</FormLabel>
                   <Input _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} placeholder='Masukan Nama' height={"50px"} fontSize="12" fontFamily={"Lora"} />
 
-                  <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Ucapan Anda</FormLabel>
-                  <Textarea _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"25px"} bgColor={"whiteAlpha.900"} placeholder='Masukkan Ucapan' height={"120px"} fontSize="12" fontFamily={"Lora"} />
+                  <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Saya akan menghadiri</FormLabel>
+                  <Select focusBorderColor={"orange.800"} marginBottom={"10px"} bgColor={"whiteAlpha.900"} placeholder='Pilih' color={'#222222'} height={"50px"} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"} >
+                    <option>Ya</option>
+                    <option>Tidak</option>
+                    <option>Mungkin</option>
+                  </Select>
 
+                  <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Ucapan Anda</FormLabel>
+                  <Textarea _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} placeholder='Masukkan Ucapan' height={"120px"} fontSize="12" fontFamily={"Lora"} />
+   
                   <Button
+                    marginTop={"25px"}
                     bgColor={"orange.900"}
                     borderRadius={"40px"}
                     color={"whiteAlpha.900"}
@@ -309,11 +279,11 @@ export function Invitation() {
 const renderer = ({ days, hours, minutes, seconds, completed }: { days: number, hours: number, minutes: number, seconds: number, completed: any }) => {
   if (completed) {
     if (days <= 1) {
-      return <Text width={"80%"} color={'#222222'} fontSize="20" fontFamily={"Lora"} textColor={"orange.900"}>
+      return <Text width={"80%"} color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"orange.900"}>
         Acara Sedang Berlangsung
       </Text >;
     } else {
-      return <Text width={"80%"} color={'#222222'} fontSize="20" fontFamily={"Lora"} textColor={"orange.900"}>
+      return <Text width={"80%"} color={'#222222'} fontSize="66" fontFamily={"Lora"} textColor={"orange.900"}>
         Acara Sudah Selesai
       </Text >;
     }
