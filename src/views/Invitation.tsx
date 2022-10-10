@@ -66,6 +66,7 @@ export function Invitation() {
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center top, center 100px, center",
             backgroundSize: "auto, auto, cover",
+            backgroundAttachment: "fixed",
           }
         }>
         {
