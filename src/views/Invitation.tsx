@@ -1,27 +1,20 @@
 import {
-  Flex,
   Container,
-  Heading,
-  Stack,
   Text,
   Button,
-  Icon,
-  IconProps,
   Box,
-  Spacer,
   Image,
   VStack,
-  color,
   HStack,
-  Divider,
   AspectRatio,
   Spinner,
-  FormControl,
   FormLabel,
-  Select,
   Input,
-  Textarea,
-  ButtonGroup
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
 } from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons'
 import CenterPatternHeaderInvitation from './../assets/CenterPatternHeaderInvitation.svg';
@@ -36,6 +29,7 @@ import HorizontalLine from './../assets/HorizontalLine.svg';
 import VerticalLine from './../assets/VerticalLine.svg';
 import FooterLogo from './../assets/FooterLogo.svg';
 import InstagramLogo from './../assets/InstagramLogo.svg';
+import UcapanTerimakasih from './../assets/UcapanTerimakasih.svg';
 import Image1 from './../assets/Image-1.png';
 import Image2 from './../assets/Image-2.png';
 import Image3 from './../assets/Image-3.png';
@@ -43,27 +37,16 @@ import Image4 from './../assets/Image-4.png';
 import Image5 from './../assets/Image-5.png';
 import "./../styles.css";
 import QRCode from 'react-qr-code';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useAuth from './Auth';
 import { Loading } from './Loading';
 import Countdown from 'react-countdown';
 import ProfileUndangan from '../config/profile-undangan';
-import InvitationApi from '../api/invitation';
 import MessageBoxApi, { WillAttendEnum } from '../api/message-box';
 import { Formik } from 'formik';
 import {
-  CheckboxContainer,
-  CheckboxControl,
-  CheckboxSingleControl,
-  InputControl,
-  NumberInputControl,
-  PercentComplete,
-  RadioGroupControl,
-  ResetButton,
   SelectControl,
-  SliderControl,
   SubmitButton,
-  SwitchControl,
   TextareaControl
 } from "formik-chakra-ui";
 import * as Yup from "yup";
@@ -83,6 +66,7 @@ export function Invitation() {
     message: Yup.string().required('Kolom pesan tidak boleh kosong'),
     select: Yup.string().required('Kolom Kehadiran Harap Dipilih'),
   });
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
 
   const onSubmit = async (values: any) => {
@@ -94,8 +78,8 @@ export function Invitation() {
         willAttend: values.select,
         slug: data.slug
       });
-      console.log(msgBoxResponse);
       if (msgBoxResponse.status === 201 && msgBoxResponse.data) {
+        onOpen();
         setIsHaveSubmitMessage(true);
       }
     } catch (error) {
@@ -270,7 +254,7 @@ export function Invitation() {
                   UCAPAN & DOA
                 </Text>
                 <Text w={"80%"} color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"orange.900"}>
-                  Terima kasih berterima kasih atas tanda kasih serta ucapan dan doa yang diberikan
+                  Terima kasih atas tanda kasih serta ucapan dan doa yang diberikan
                 </Text>
                 {
                   !isHaveSubmitMessage && (
@@ -324,29 +308,6 @@ export function Invitation() {
                               fontFamily: "Lora",
                             }}
                           />
-                          {/* //   <Button
-                    //     marginTop={"25px"}
-                    //     bgColor={"orange.900"}
-                    //     borderRadius={"40px"}
-                    //     color={"whiteAlpha.900"}
-                    //     variant="solid"
-                    //     width={"100%"}
-                    //     height={"50px"}
-                    //     fontSize="12"
-                    //     fontFamily={"Lora"}
-                    //     _hover={{
-                    //       bg: 'orange.800',
-                    //       color: 'whiteAlpha.900'
-                    //     }}
-                    //     _active={{
-                    //       bg: 'orange.700',
-                    //       transform: 'scale(0.95)',
-                    //       color: 'whiteAlpha.900'
-                    //     }}
-                    //     onClick={() => { handleSubmit() }}
-                    //     isLoading={loadingForm}
-                    //   >
-                    //     Kirim Ucapan</Button> */}
                           <SubmitButton
                             marginTop={"25px"}
                             bgColor={"orange.900"}
@@ -457,7 +418,41 @@ export function Invitation() {
             </VStack>
           </VStack>
         }
-
+        <>
+          <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent backgroundColor={"#EBE5D5"} marginTop={"30vh"} width={"90%"}>
+              <ModalBody marginTop={"50px"} marginBottom={"50px"} >
+                <VStack spacing={10}>
+                  <Image src={UcapanTerimakasih} alt="UcapanTerimakasih" height={"80px"} width={"80px"} />
+                  <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"orange.900"}>
+                    Terima kasih atas ucapan dan doa Anda
+                  </Text>
+                  <Button
+                    marginTop={"25px"}
+                    bgColor={"orange.900"}
+                    borderRadius={"40px"}
+                    color={"whiteAlpha.900"}
+                    variant="solid"
+                    width={"100%"}
+                    height={"50px"}
+                    fontSize="12"
+                    fontFamily={"Lora"}
+                    _hover={{
+                      bg: 'orange.800',
+                      color: 'whiteAlpha.900'
+                    }}
+                    _active={{
+                      bg: 'orange.700',
+                      transform: 'scale(0.95)',
+                      color: 'whiteAlpha.900'
+                    }} onClick={onClose}>
+                    Tutup
+                  </Button>
+                </VStack>
+              </ModalBody>
+            </ModalContent>
+          </Modal></>
       </Container >
   );
 
