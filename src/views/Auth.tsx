@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import InvitationApi, { IInvitation } from '../api/invitation';
-import { NotFound } from './NotFound';
 import { useNavigate, useParams } from 'react-router-dom';
 import MessageBoxApi from '../api/message-box';
 
