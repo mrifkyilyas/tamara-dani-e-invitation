@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import InvitationApi, { IInvitation } from '../api/invitation';
-import { NotFound } from './NotFound';
 import { useNavigate, useParams } from 'react-router-dom';
+import MessageBoxApi from '../api/message-box';
 
 const capitalize = (s: string) => {
     if (typeof s !== 'string') return ''
@@ -22,6 +22,7 @@ const useAuth = () => {
         slug: "",
         checkInTime: new Date(),
     });
+    const [isHaveSubmitMessage, setIsHaveSubmitMessage] = useState(false);
     const getDetailInvitation = async () => {
         try {
             if (!slug) {
@@ -33,6 +34,7 @@ const useAuth = () => {
                 setFound(true);
                 response.data.name = response.data.name.split(" ").map((word: string) => capitalize(word)).join(" ")
                 setData(response.data);
+                getIsHaveSubmitMessage(response.data.slug);
             } else {
                 navigate('/not-found');
             }
@@ -43,11 +45,28 @@ const useAuth = () => {
         }
     }
 
+    const getIsHaveSubmitMessage = async (slug: string) => {
+        try {
+            if (!slug) {
+                throw new Error('Slug is required');
+            }
+            const response = await MessageBoxApi.isHaveMessageBox(slug);
+            if (response) {
+                console.log(response.data, 'woooyyy');
+                setIsHaveSubmitMessage(response.data.isHaveMessage);
+                console.log(isHaveSubmitMessage, 'isHaveSubmitMessage');
+            }
+        } catch (error) {
+           throw new Error("Error get is have submit message");
+        }
+    }
+
+
     useEffect(() => {
         getDetailInvitation();
     }, []);
 
-    return { loading, found, data };
+    return { loading, found, data, isHaveSubmitMessage, setIsHaveSubmitMessage };
 }
 
 export default useAuth

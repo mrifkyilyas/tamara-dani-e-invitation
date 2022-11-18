@@ -1,17 +1,10 @@
 import {
-  Flex,
   Container,
-  Heading,
-  Stack,
   Text,
   Button,
-  Icon,
-  IconProps,
   Box,
-  Spacer,
   Image,
   VStack,
-  color
 } from '@chakra-ui/react';
 import RightPatternHeader from './../assets/RightPatternHeader.svg';
 import LeftPatternHeader from './../assets/LeftPatternHeader.svg';
@@ -21,9 +14,7 @@ import Logo from './../assets/Logo.svg';
 import RightWayang from './../assets/RightWayang.svg';
 import LeftWayang from './../assets/LeftWayang.svg';
 import "./../styles.css";
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import InvitationApi from '../api/invitation';
+import { useNavigate } from 'react-router-dom';
 import useAuth from './Auth';
 import { Loading } from './Loading';
 

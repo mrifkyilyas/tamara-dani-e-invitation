@@ -1,39 +1,12 @@
 import {
-  Flex,
   Container,
-  Heading,
-  Stack,
-  Text,
-  Button,
-  Icon,
-  IconProps,
-  Box,
-  Spacer,
-  Image,
   VStack,
-  color,
-  HStack,
-  Divider,
-  AspectRatio,
   Spinner
 } from '@chakra-ui/react';
-import { TimeIcon } from '@chakra-ui/icons'
-import RightPatternHeader from './../assets/RightPatternHeader.svg';
-import LeftPatternHeader from './../assets/LeftPatternHeader.svg';
 import CenterPatternHeaderInvitation from './../assets/CenterPatternHeaderInvitation.svg';
 import Background from './../assets/Background.svg';
-import Logo from './../assets/Logo.svg';
 import Gunungan from './../assets/Gunungan.svg';
-import RightWayang from './../assets/RightWayang.svg';
-import LeftWayang from './../assets/LeftWayang.svg';
-import QRExample from './../assets/QRExample.png';
-import Pengantin from './../assets/Pengantin.jpeg';
-import HorizontalLine from './../assets/HorizontalLine.svg';
-import VerticalLine from './../assets/VerticalLine.svg';
 import "./../styles.css";
-import QRCode from 'react-qr-code';
-import { useEffect, useState } from 'react';
-import useAuth from './Auth';
 
 export function Loading() {
 

@@ -1,26 +1,20 @@
 import {
-  Flex,
   Container,
-  Heading,
-  Stack,
   Text,
   Button,
-  Icon,
-  IconProps,
   Box,
-  Spacer,
   Image,
   VStack,
-  color,
   HStack,
-  Divider,
   AspectRatio,
   Spinner,
-  FormControl,
   FormLabel,
-  Select,
   Input,
-  Textarea
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
 } from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons'
 import CenterPatternHeaderInvitation from './../assets/CenterPatternHeaderInvitation.svg';
@@ -35,6 +29,7 @@ import HorizontalLine from './../assets/HorizontalLine.svg';
 import VerticalLine from './../assets/VerticalLine.svg';
 import FooterLogo from './../assets/FooterLogo.svg';
 import InstagramLogo from './../assets/InstagramLogo.svg';
+import UcapanTerimakasih from './../assets/UcapanTerimakasih.svg';
 import Image1 from './../assets/Image-1.png';
 import Image2 from './../assets/Image-2.png';
 import Image3 from './../assets/Image-3.png';
@@ -42,17 +37,60 @@ import Image4 from './../assets/Image-4.png';
 import Image5 from './../assets/Image-5.png';
 import "./../styles.css";
 import QRCode from 'react-qr-code';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useAuth from './Auth';
 import { Loading } from './Loading';
 import Countdown from 'react-countdown';
 import ProfileUndangan from '../config/profile-undangan';
+import MessageBoxApi, { WillAttendEnum } from '../api/message-box';
+import { Formik } from 'formik';
+import {
+  SelectControl,
+  SubmitButton,
+  TextareaControl
+} from "formik-chakra-ui";
+import * as Yup from "yup";
+
 
 
 export function Invitation() {
-
-  const { loading, found, data } = useAuth();
+  const { loading, found, data, isHaveSubmitMessage, setIsHaveSubmitMessage } = useAuth();
+  const [loadingForm, setLoadingForm] = useState(false);
   const hDay = new Date(ProfileUndangan.hDay);
+
+  const initialValues = {
+    message: "",
+    select: "",
+  };
+  const validationSchema = Yup.object({
+    message: Yup.string().required('Kolom pesan tidak boleh kosong'),
+    select: Yup.string().required('Kolom Kehadiran Harap Dipilih'),
+  });
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+
+  const onSubmit = async (values: any) => {
+    setLoadingForm(true);
+    console.log('masuk sini')
+    try {
+      const msgBoxResponse = await MessageBoxApi.submitMessageBox({
+        message: values.message,
+        willAttend: values.select,
+        slug: data.slug
+      });
+      if (msgBoxResponse.status === 201 && msgBoxResponse.data) {
+        onOpen();
+        setIsHaveSubmitMessage(true);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingForm(false);
+    }
+
+  };
+
+
 
   return (
     loading ? <Loading /> :
@@ -216,22 +254,180 @@ export function Invitation() {
                   UCAPAN & DOA
                 </Text>
                 <Text w={"80%"} color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"orange.900"}>
-                  Terima kasih berterima kasih atas tanda kasih serta ucapan dan doa yang diberikan
+                  Terima kasih atas tanda kasih serta ucapan dan doa yang diberikan
                 </Text>
-                <FormControl width={"90%"}>
-                  <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Nama Anda</FormLabel>
-                  <Input _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} value={data.name} height={"50px"} fontSize="12" fontFamily={"Lora"} isReadOnly/>
+                {
+                  !isHaveSubmitMessage && (
+                    <Formik
+                      initialValues={initialValues}
+                      onSubmit={onSubmit}
+                      validationSchema={validationSchema}
+                    >
+                      {({ handleSubmit, values, errors }) => (
+                        <Box
+                          width={"90%"}
+                          as="form"
+                          onSubmit={handleSubmit as any}
+                        >
+                          <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Nama Anda</FormLabel>
+                          <Input _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} value={data.name} height={"50px"} fontSize="12" fontFamily={"Lora"} isReadOnly />
+                          <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Saya akan menghadiri</FormLabel>
+                          <SelectControl
+                            name="select"
+                            selectProps={{
+                              placeholder: "Pilih",
+                              isRequired: true,
+                              focusBorderColor: "orange.800",
+                              color: "orange.800",
+                              bgColor: "whiteAlpha.900",
+                              height: "50px",
+                              fontSize: "12",
+                              fontFamily: "Lora",
+                              marginBottom: "10px",
+                              _placeholder: { color: 'orange.800' },
+                            }
+                            }
+                          >
+                            <option value={WillAttendEnum.YES}>Ya</option>
+                            <option value={WillAttendEnum.NO} >Tidak</option>
+                            <option value={WillAttendEnum.MAYBE}>Mungkin</option>
+                          </SelectControl>
+                          <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Ucapan Anda</FormLabel>
+                          <TextareaControl
+                            name="message"
+                            textareaProps={{
+                              isRequired: true,
+                              _placeholder: { color: 'orange.800' },
+                              focusBorderColor: "orange.800",
+                              color: "orange.800",
+                              marginBottom: "10px",
+                              bgColor: "whiteAlpha.900",
+                              placeholder: 'Masukkan Ucapan',
+                              height: "120px",
+                              fontSize: "12",
+                              fontFamily: "Lora",
+                            }}
+                          />
+                          <SubmitButton
+                            marginTop={"25px"}
+                            bgColor={"orange.900"}
+                            borderRadius={"40px"}
+                            color={"whiteAlpha.900"}
+                            variant="solid"
+                            width={"100%"}
+                            height={"50px"}
+                            fontSize="12"
+                            fontFamily={"Lora"}
+                            _hover={{
+                              bg: 'orange.800',
+                              color: 'whiteAlpha.900'
+                            }}
+                            _active={{
+                              bg: 'orange.700',
+                              transform: 'scale(0.95)',
+                              color: 'whiteAlpha.900'
+                            }}
+                            isLoading={loadingForm}
+                          >Submit</SubmitButton>
+                        </Box>
+                      )}
+                    </Formik>
+                    // <>
+                    //   <FormControl width={"90%"}>
+                    //     <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Nama Anda</FormLabel>
+                    //     <Input _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} value={data.name} height={"50px"} fontSize="12" fontFamily={"Lora"} isReadOnly />
+                    //   </FormControl>
+                    //   <FormControl width={"90%"}>
+                    //     <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Saya akan menghadiri</FormLabel>
+                    //     <Select
+                    //       onChange={(e) => setWillAttend(e.target.value)}
+                    //       // handleChange={(e) => setWillAttend(e.target.value)}
+                    //       focusBorderColor={"orange.800"}
+                    //       marginBottom={"10px"}
+                    //       bgColor={"whiteAlpha.900"}
+                    //       placeholder='Pilih'
+                    //       color={'#222222'}
+                    //       height={"50px"}
+                    //       fontSize="12"
+                    //       fontFamily={"Lora"}
+                    //       textColor={"orange.900"}
+                    //       isRequired={true} >
+                    //       <option value={WillAttendEnum.YES}>Ya</option>
+                    //       <option value={WillAttendEnum.NO} >Tidak</option>
+                    //       <option value={WillAttendEnum.MAYBE}>Mungkin</option>
+                    //     </Select>
+                    //   </FormControl>
+                    //   <FormControl width={"90%"}>
 
-                  <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Saya akan menghadiri</FormLabel>
-                  <Select focusBorderColor={"orange.800"} marginBottom={"10px"} bgColor={"whiteAlpha.900"} placeholder='Pilih' color={'#222222'} height={"50px"} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"} >
-                    <option>Ya</option>
-                    <option>Tidak</option>
-                    <option>Mungkin</option>
-                  </Select>
+                    //     <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Ucapan Anda</FormLabel>
+                    //     <Textarea
+                    //       isRequired={true}
+                    //       _placeholder={{ color: 'orange.800' }}
+                    //       focusBorderColor={"orange.800"}
+                    //       color="orange.800"
+                    //       marginBottom={"10px"}
+                    //       bgColor={"whiteAlpha.900"}
+                    //       placeholder='Masukkan Ucapan'
+                    //       height={"120px"}
+                    //       fontSize="12"
+                    //       fontFamily={"Lora"}
+                    //       onChange={(e) => setMessage(e.target.value)}
+                    //     />
+                    //   </FormControl>
+                    //   <FormControl width={"90%"}>
+                    //   <Button
+                    //     marginTop={"25px"}
+                    //     bgColor={"orange.900"}
+                    //     borderRadius={"40px"}
+                    //     color={"whiteAlpha.900"}
+                    //     variant="solid"
+                    //     width={"100%"}
+                    //     height={"50px"}
+                    //     fontSize="12"
+                    //     fontFamily={"Lora"}
+                    //     _hover={{
+                    //       bg: 'orange.800',
+                    //       color: 'whiteAlpha.900'
+                    //     }}
+                    //     _active={{
+                    //       bg: 'orange.700',
+                    //       transform: 'scale(0.95)',
+                    //       color: 'whiteAlpha.900'
+                    //     }}
+                    //     onClick={() => { handleSubmit() }}
+                    //     isLoading={loadingForm}
+                    //   >
+                    //     Kirim Ucapan</Button>
+                    // </FormControl>
+                    // </>
+                  )
+                }
+              </VStack>
+              <VStack spacing={"1"}>
+                <Image src={FooterLogo} alt="Logo" marginBottom={"60px"} />
+                <HStack>
+                  <Image src={InstagramLogo} alt="InstagramLogo" height={"12px"} />
+                  <Text color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>
+                    Designed by Oklin Studio
+                  </Text>
+                </HStack>
 
-                  <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Ucapan Anda</FormLabel>
-                  <Textarea _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} placeholder='Masukkan Ucapan' height={"120px"} fontSize="12" fontFamily={"Lora"} />
-   
+
+              </VStack>
+
+            </VStack>
+          </VStack>
+        }
+        <>
+          <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent backgroundColor={"#EBE5D5"} marginTop={"30vh"} width={"90%"}>
+              <ModalBody marginTop={"50px"} marginBottom={"50px"} >
+                <VStack spacing={10}>
+                  <Image src={UcapanTerimakasih} alt="UcapanTerimakasih" height={"80px"} width={"80px"} />
+                  <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"orange.900"}>
+                    Terima kasih atas ucapan dan doa Anda
+                  </Text>
                   <Button
                     marginTop={"25px"}
                     bgColor={"orange.900"}
@@ -250,28 +446,14 @@ export function Invitation() {
                       bg: 'orange.700',
                       transform: 'scale(0.95)',
                       color: 'whiteAlpha.900'
-                    }}
-                  >
-                    Kirim Ucapan</Button>
-                </FormControl>
-              </VStack>
-              <VStack spacing={"1"}>
-                <Image src={FooterLogo} alt="Logo" marginBottom={"60px"} />
-                <HStack>
-                  <Image src={InstagramLogo} alt="InstagramLogo" height={"12px"} />
-                  <Text color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>
-                    Designed by Oklin Studio
-                  </Text>
-                </HStack>
-
-
-              </VStack>
-
-            </VStack>
-          </VStack>
-        }
-
-      </Container>
+                    }} onClick={onClose}>
+                    Tutup
+                  </Button>
+                </VStack>
+              </ModalBody>
+            </ModalContent>
+          </Modal></>
+      </Container >
   );
 
 
