@@ -130,7 +130,7 @@ export function Invitation() {
                 <VStack>
                   <Box bgColor={"whiteAlpha.900"} opacity={"0.7"} p={"20px"} paddingBottom="10px">
                     <QRCode value={data.slug} size={200} />
-                    <Text align={"right"} fontSize="10">
+                    <Text align={"right"} fontSize="7.5">
                       {data.slug}
                     </Text>
                   </Box>
