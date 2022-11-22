@@ -51,14 +51,14 @@ const Welcome = () => {
           flex={1}
           justifyContent={"center"}>
           <Image src={Logo} alt="Logo" className="Logo" />
-          <Box>
+          <VStack width={"85%"}>
             <Text color={'#222222'} fontSize="14" fontFamily={"Lora"}>
               Kepada,
             </Text>
-            <Text color={'#222222'} fontSize="22" fontFamily={"Lora-italic"} fontWeight={"bold"} textColor={"orange.900"}>
+            <Text  color={'#222222'} fontSize="22" fontFamily={"Lora-italic"} fontWeight={"bold"} textColor={"orange.900"}>
               {data?.name}
             </Text >
-          </Box>
+          </VStack>
         </VStack>
         <Button
           bgColor={"orange.900"}
