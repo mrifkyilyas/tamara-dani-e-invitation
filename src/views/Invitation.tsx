@@ -24,7 +24,7 @@ import Gunungan from './../assets/Gunungan.svg';
 import ProkesMasker from './../assets/ProkesMasker.svg';
 import ProkesJarak from './../assets/ProkesJarak.svg';
 import ProkesCuci from './../assets/ProkesCuci.svg';
-import Pengantin from './../assets/Pengantin.jpeg';
+import Pengantin from './../assets/Pengantin.png';
 import HorizontalLine from './../assets/HorizontalLine.svg';
 import VerticalLine from './../assets/VerticalLine.svg';
 import FooterLogo from './../assets/FooterLogo.svg';
@@ -135,19 +135,21 @@ export function Invitation() {
                     </Text>
                   </Box>
                   <Text width={"90%"} color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"orange.900"}>
-                    Mohon untuk scan Qr di atas untuk masuk ke dalam gedung
+                    Mohon untuk scan QR di atas untuk masuk ke dalam gedung
                   </Text >
                 </VStack>
                 <VStack>
                   <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
-                    Bismillahirrahmanirrahim Assalamualaikum Warahmatullahi Wabarakatuh
+                    Bismillahirrahmanirrahim <br/>
+                    Assalamualaikum Warahmatullahi Wabarakatuh
                   </Text >
+
                   <Text width={"90%"} color={'#222222'} fontSize="16" fontFamily={"Lora-italic"} textColor={"orange.900"}>
                     Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami
                   </Text >
                 </VStack>
                 <VStack spacing={7}>
-                  <Image src={Pengantin} borderRadius="10px" width={329} height={200} loading={"lazy"} fit={"cover"} />
+                  <Image src={Pengantin} borderRadius="10px" width={330} height={200} loading={"lazy"} fit={"cover"} />
                   <VStack>
                     <Text color={'#222222'} fontSize="18" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
                       {ProfileUndangan.pengantinWanita}
