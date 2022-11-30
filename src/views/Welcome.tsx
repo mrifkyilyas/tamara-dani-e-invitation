@@ -25,7 +25,7 @@ const Welcome = () => {
 
   const navigate = useNavigate();
   return (
-    loading ? <Loading/> : <Container maxWidth={"420px"} height={"100vh"} padding={"0"} margin={"auto"}
+    loading ? <Loading/> : <Container padding={"0"} margin={"auto"} height={"96vh"} position={"fixed"} 
       backgroundColor={"white"} style={
         {
           backgroundImage: `url(${RightPatternHeader}),
@@ -36,7 +36,7 @@ const Welcome = () => {
            url(${Background})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "right top, left top, center top, right bottom, left bottom, center",
-          backgroundSize: "auto, auto, auto, auto, auto, cover",
+          backgroundSize: "auto, auto, auto, auto, auto, cover", 
         }
       }>
       <VStack
@@ -44,7 +44,7 @@ const Welcome = () => {
         align={'center'}
         justifyContent={'center'}
         height={"100%"}
-        py={"4rem"}
+        py={"3rem"}
       >
         <VStack
           spacing={8}
