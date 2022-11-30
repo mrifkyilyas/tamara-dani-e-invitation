@@ -35,6 +35,11 @@ import Image2 from './../assets/Image-2.png';
 import Image3 from './../assets/Image-3.png';
 import Image4 from './../assets/Image-4.png';
 import Image5 from './../assets/Image-5.png';
+import Slideshow1 from './../assets/slideshow-1.jpg';
+import Slideshow2 from './../assets/slideshow-2.jpg';
+import Slideshow3 from './../assets/slideshow-3.jpg';
+import Slideshow4 from './../assets/slideshow-4.jpg';
+import Slideshow5 from './../assets/slideshow-5.jpg';
 import "./../styles.css";
 import QRCode from 'react-qr-code';
 import { useState } from 'react';
@@ -50,6 +55,8 @@ import {
   TextareaControl
 } from "formik-chakra-ui";
 import * as Yup from "yup";
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
 
 
 
@@ -71,7 +78,6 @@ export function Invitation() {
 
   const onSubmit = async (values: any) => {
     setLoadingForm(true);
-    console.log('masuk sini')
     try {
       const msgBoxResponse = await MessageBoxApi.submitMessageBox({
         message: values.message,
@@ -90,17 +96,29 @@ export function Invitation() {
 
   };
 
+  const [photoIndex, setPhotoIndex] = useState(1);
+  const [isOpenLightbox, setIsOpenLightbox] = useState(false);
+  const images = [
+    Slideshow1,
+    Slideshow2,
+    Slideshow3,
+    Slideshow4,
+    Slideshow5,
+  ];
 
-
+  const handleOpenLightBox = (value: number) => {
+    setIsOpenLightbox(true);
+    setPhotoIndex(value);
+  }
   return (
     loading ? <Loading /> :
       <Container maxWidth={"420px"} height={"auto"} padding={"0"} margin={"auto"}
         backgroundColor={"white"} style={
           {
             backgroundImage: `
-           url(${CenterPatternHeaderInvitation}), 
-           url(${Gunungan}),
-           url(${Background})`,
+             url(${CenterPatternHeaderInvitation}), 
+             url(${Gunungan}),
+             url(${Background})`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center top, center 100px, center",
             backgroundSize: "auto, auto, cover",
@@ -112,7 +130,7 @@ export function Invitation() {
             thickness='4px'
             speed='0.65s'
             emptyColor='gray.200'
-            color='orange.900'
+            color='#673B16'
             size='xl'
           /> : <VStack
             textAlign={'center'}
@@ -134,50 +152,50 @@ export function Invitation() {
                       {data.slug}
                     </Text>
                   </Box>
-                  <Text width={"90%"} color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"orange.900"}>
+                  <Text width={"90%"} color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"#673B16"}>
                     Mohon untuk scan QR di atas untuk masuk ke dalam gedung
                   </Text >
                 </VStack>
                 <VStack>
-                  <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
-                    Bismillahirrahmanirrahim <br/>
+                  <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} fontWeight={"bold"} textColor={"#673B16"}>
+                    Bismillahirrahmanirrahim <br />
                     Assalamualaikum Warahmatullahi Wabarakatuh
                   </Text >
 
-                  <Text width={"90%"} color={'#222222'} fontSize="16" fontFamily={"Lora-italic"} textColor={"orange.900"}>
+                  <Text width={"90%"} color={'#222222'} fontSize="16" fontFamily={"Lora-italic"} textColor={"#673B16"}>
                     Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami
                   </Text >
                 </VStack>
                 <VStack spacing={7}>
                   <Image src={Pengantin} borderRadius="10px" width={330} height={200} loading={"lazy"} fit={"cover"} />
                   <VStack>
-                    <Text color={'#222222'} fontSize="18" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
+                    <Text color={'#222222'} fontSize="18" fontFamily={"Lora"} fontWeight={"bold"} textColor={"#673B16"}>
                       {ProfileUndangan.pengantinWanita}
                     </Text >
-                    <Text width={"90%"} color={'#222222'} fontSize="16" fontFamily={"Lora-italic"} textColor={"orange.900"}>
+                    <Text width={"90%"} color={'#222222'} fontSize="16" fontFamily={"Lora-italic"} textColor={"#673B16"}>
                       {ProfileUndangan.orangTuaWanita}
                     </Text >
                   </VStack>
                   <VStack>
-                    <Text color={'#222222'} fontSize="18" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
+                    <Text color={'#222222'} fontSize="18" fontFamily={"Lora"} fontWeight={"bold"} textColor={"#673B16"}>
                       {ProfileUndangan.pengantinPria}
                     </Text >
-                    <Text width={"90%"} color={'#222222'} fontSize="16" fontFamily={"Lora-italic"} textColor={"orange.900"}>
+                    <Text width={"90%"} color={'#222222'} fontSize="16" fontFamily={"Lora-italic"} textColor={"#673B16"}>
                       {ProfileUndangan.orangTuaPria}
                     </Text >
                   </VStack>
                 </VStack>
               </VStack>
               <VStack spacing={"12"}>
-                <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"orange.900"}>
+                <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"#673B16"}>
                   ACARA
                 </Text >
                 <Countdown date={hDay} renderer={renderer} overtime={true} />,
-                <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
+                <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} fontWeight={"bold"} textColor={"#673B16"}>
                   {ProfileUndangan.tanggalAkad}
                 </Text >
                 <Image src={VerticalLine} alt="Vertical Line" className="VerticalLine" />
-                <HStack justifyContent={"center"} flex={3} spacing={"20px"} color={'#222222'} fontSize="14" fontFamily={"Lora"} fontWeight={"bold"} textColor={"orange.900"}>
+                <HStack justifyContent={"center"} flex={3} spacing={"20px"} color={'#222222'} fontSize="14" fontFamily={"Lora"} fontWeight={"bold"} textColor={"#673B16"}>
                   <VStack spacing={3} justifyContent={"center"}>
                     <Text>
                       Akad
@@ -197,7 +215,7 @@ export function Invitation() {
                   </VStack>
                 </HStack>
                 <Image src={VerticalLine} alt="Vertical Line" className="VerticalLine" />
-                <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"orange.900"}>
+                <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"#673B16"}>
                   <b>{ProfileUndangan.tempatAcara}</b>
                   <br />
                   {
@@ -209,18 +227,18 @@ export function Invitation() {
                 </AspectRatio>
               </VStack>
               <VStack spacing={"12"}>
-                <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"orange.900"}>
+                <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"#673B16"}>
                   GALERI
                 </Text>
                 <HStack>
                   <VStack spacing={3}>
-                    <Image src={Image1} borderRadius="10px" loading={"lazy"} fit={"cover"} />
-                    <Image src={Image2} borderRadius="10px" loading={"lazy"} fit={"cover"} />
+                    <Image onClick={() => handleOpenLightBox(0)} src={Image1} borderRadius="10px" loading={"lazy"} fit={"cover"}/>
+                    <Image onClick={() => handleOpenLightBox(1)} src={Image2} borderRadius="10px" loading={"lazy"} fit={"cover"} />
                   </VStack>
                   <VStack spacing={3}>
-                    <Image src={Image3} borderRadius="10px" loading={"lazy"} fit={"cover"} />
-                    <Image src={Image4} borderRadius="10px" loading={"lazy"} fit={"cover"} />
-                    <Image src={Image5} borderRadius="10px" loading={"lazy"} fit={"cover"} />
+                    <Image onClick={() => handleOpenLightBox(2)} src={Image3} borderRadius="10px" loading={"lazy"} fit={"cover"} />
+                    <Image onClick={() => handleOpenLightBox(3)} src={Image4} borderRadius="10px" loading={"lazy"} fit={"cover"} />
+                    <Image onClick={() => handleOpenLightBox(4)} src={Image5} borderRadius="10px" loading={"lazy"} fit={"cover"} />
                   </VStack>
 
                 </HStack>
@@ -228,34 +246,34 @@ export function Invitation() {
               </VStack>
 
               <VStack spacing={"8"}>
-                <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"orange.900"}>
+                <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"#673B16"}>
                   PROKES
                 </Text>
                 <VStack spacing={2}>
                   <Image src={ProkesMasker} alt="Prokes Masker" height={"40px"} />
-                  <Text color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"orange.900"}>
+                  <Text color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"#673B16"}>
                     Gunakan masker selama acara berlangsung
                   </Text>
                 </VStack>
                 <VStack spacing={2}>
                   <Image src={ProkesJarak} alt="Prokes Jarak" height={"40px"} />
-                  <Text color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"orange.900"}>
+                  <Text color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"#673B16"}>
                     Tetap menjaga jarak aman
                   </Text>
                 </VStack>
                 <VStack spacing={2}>
                   <Image src={ProkesCuci} alt="Prokes Cuci" height={"40px"} />
-                  <Text color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"orange.900"}>
+                  <Text color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"#673B16"}>
                     Cuci tangan dan gunakan hand sanitizer
                   </Text>
                 </VStack>
 
               </VStack>
               <VStack spacing={"4"}>
-                <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"orange.900"}>
+                <Text fontWeight={700} color={'#222222'} fontSize="24" fontFamily={"Lora"} textColor={"#673B16"}>
                   UCAPAN & DOA
                 </Text>
-                <Text w={"80%"} color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"orange.900"}>
+                <Text w={"80%"} color={'#222222'} fontSize="14" fontFamily={"Lora"} textColor={"#673B16"}>
                   Terima kasih atas tanda kasih serta ucapan dan doa yang diberikan
                 </Text>
                 {
@@ -271,9 +289,9 @@ export function Invitation() {
                           as="form"
                           onSubmit={handleSubmit as any}
                         >
-                          <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Nama Anda</FormLabel>
+                          <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"#673B16"}>Nama Anda</FormLabel>
                           <Input _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} value={data.name} height={"50px"} fontSize="12" fontFamily={"Lora"} isReadOnly />
-                          <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Saya akan menghadiri</FormLabel>
+                          <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"#673B16"}>Saya akan menghadiri</FormLabel>
                           <SelectControl
                             name="select"
                             selectProps={{
@@ -294,7 +312,7 @@ export function Invitation() {
                             <option value={WillAttendEnum.NO} >Tidak</option>
                             <option value={WillAttendEnum.MAYBE}>Mungkin</option>
                           </SelectControl>
-                          <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Ucapan Anda</FormLabel>
+                          <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"#673B16"}>Ucapan Anda</FormLabel>
                           <TextareaControl
                             name="message"
                             textareaProps={{
@@ -312,7 +330,7 @@ export function Invitation() {
                           />
                           <SubmitButton
                             marginTop={"25px"}
-                            bgColor={"orange.900"}
+                            bgColor={"#673B16"}
                             borderRadius={"40px"}
                             color={"whiteAlpha.900"}
                             variant="solid"
@@ -334,74 +352,6 @@ export function Invitation() {
                         </Box>
                       )}
                     </Formik>
-                    // <>
-                    //   <FormControl width={"90%"}>
-                    //     <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Nama Anda</FormLabel>
-                    //     <Input _placeholder={{ color: 'orange.800' }} focusBorderColor={"orange.800"} color="orange.800" isRequired={true} marginBottom={"10px"} bgColor={"whiteAlpha.900"} value={data.name} height={"50px"} fontSize="12" fontFamily={"Lora"} isReadOnly />
-                    //   </FormControl>
-                    //   <FormControl width={"90%"}>
-                    //     <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Saya akan menghadiri</FormLabel>
-                    //     <Select
-                    //       onChange={(e) => setWillAttend(e.target.value)}
-                    //       // handleChange={(e) => setWillAttend(e.target.value)}
-                    //       focusBorderColor={"orange.800"}
-                    //       marginBottom={"10px"}
-                    //       bgColor={"whiteAlpha.900"}
-                    //       placeholder='Pilih'
-                    //       color={'#222222'}
-                    //       height={"50px"}
-                    //       fontSize="12"
-                    //       fontFamily={"Lora"}
-                    //       textColor={"orange.900"}
-                    //       isRequired={true} >
-                    //       <option value={WillAttendEnum.YES}>Ya</option>
-                    //       <option value={WillAttendEnum.NO} >Tidak</option>
-                    //       <option value={WillAttendEnum.MAYBE}>Mungkin</option>
-                    //     </Select>
-                    //   </FormControl>
-                    //   <FormControl width={"90%"}>
-
-                    //     <FormLabel fontWeight={700} color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>Ucapan Anda</FormLabel>
-                    //     <Textarea
-                    //       isRequired={true}
-                    //       _placeholder={{ color: 'orange.800' }}
-                    //       focusBorderColor={"orange.800"}
-                    //       color="orange.800"
-                    //       marginBottom={"10px"}
-                    //       bgColor={"whiteAlpha.900"}
-                    //       placeholder='Masukkan Ucapan'
-                    //       height={"120px"}
-                    //       fontSize="12"
-                    //       fontFamily={"Lora"}
-                    //       onChange={(e) => setMessage(e.target.value)}
-                    //     />
-                    //   </FormControl>
-                    //   <FormControl width={"90%"}>
-                    //   <Button
-                    //     marginTop={"25px"}
-                    //     bgColor={"orange.900"}
-                    //     borderRadius={"40px"}
-                    //     color={"whiteAlpha.900"}
-                    //     variant="solid"
-                    //     width={"100%"}
-                    //     height={"50px"}
-                    //     fontSize="12"
-                    //     fontFamily={"Lora"}
-                    //     _hover={{
-                    //       bg: 'orange.800',
-                    //       color: 'whiteAlpha.900'
-                    //     }}
-                    //     _active={{
-                    //       bg: 'orange.700',
-                    //       transform: 'scale(0.95)',
-                    //       color: 'whiteAlpha.900'
-                    //     }}
-                    //     onClick={() => { handleSubmit() }}
-                    //     isLoading={loadingForm}
-                    //   >
-                    //     Kirim Ucapan</Button>
-                    // </FormControl>
-                    // </>
                   )
                 }
               </VStack>
@@ -409,7 +359,7 @@ export function Invitation() {
                 <Image src={FooterLogo} alt="Logo" marginBottom={"60px"} />
                 <HStack>
                   <Image src={InstagramLogo} alt="InstagramLogo" height={"12px"} />
-                  <Text color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"orange.900"}>
+                  <Text color={'#222222'} fontSize="12" fontFamily={"Lora"} textColor={"#673B16"}>
                     Designed by Oklin Studio
                   </Text>
                 </HStack>
@@ -427,12 +377,12 @@ export function Invitation() {
               <ModalBody marginTop={"50px"} marginBottom={"50px"} >
                 <VStack spacing={10}>
                   <Image src={UcapanTerimakasih} alt="UcapanTerimakasih" height={"80px"} width={"80px"} />
-                  <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"orange.900"}>
+                  <Text color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"#673B16"}>
                     Terima kasih atas ucapan dan doa Anda
                   </Text>
                   <Button
                     marginTop={"25px"}
-                    bgColor={"orange.900"}
+                    bgColor={"#673B16"}
                     borderRadius={"40px"}
                     color={"whiteAlpha.900"}
                     variant="solid"
@@ -455,20 +405,44 @@ export function Invitation() {
               </ModalBody>
             </ModalContent>
           </Modal></>
+        <>
+          {
+            isOpenLightbox && (
+              <Lightbox
+                mainSrc={images[photoIndex]}
+                nextSrc={images[(photoIndex + 1) % images.length]}
+                prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                onCloseRequest={() => setIsOpenLightbox(false)}
+                onMovePrevRequest={() =>
+                  setPhotoIndex((photoIndex + images.length - 1) % images.length)
+                }
+                onImageLoad={() => {
+                  window.dispatchEvent(new Event('resize'));
+                }}
+                onMoveNextRequest={() =>
+                  setPhotoIndex((photoIndex + 1) % images.length)
+                }
+                onImageLoadError={() => setIsOpenLightbox(false)}
+
+              />
+            )
+          }
+        </>
+
       </Container >
   );
-
-
 }
+
+
 // Renderer callback with condition
 const renderer = ({ days, hours, minutes, seconds, completed }: { days: number, hours: number, minutes: number, seconds: number, completed: any }) => {
   if (completed) {
     if (days <= 1) {
-      return <Text width={"80%"} color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"orange.900"}>
+      return <Text width={"80%"} color={'#222222'} fontSize="16" fontFamily={"Lora"} textColor={"#673B16"}>
         Acara Sedang Berlangsung
       </Text >;
     } else {
-      return <Text width={"80%"} color={'#222222'} fontSize="66" fontFamily={"Lora"} textColor={"orange.900"}>
+      return <Text width={"80%"} color={'#222222'} fontSize="66" fontFamily={"Lora"} textColor={"#673B16"}>
         Acara Sudah Selesai
       </Text >;
     }
@@ -477,7 +451,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }: { days: number, 
     return (
       <>
         <HStack spacing={3} flex={4} color={"whiteAlpha.900"} fontSize="20" fontFamily={"Lora"} fontWeight={"bold"} >
-          <VStack spacing={"0.01"} bgColor={"orange.900"} width={"68px"} paddingTop={"5px"} paddingBottom={"5px"} borderRadius={"5px"}>
+          <VStack spacing={"0.01"} bgColor={"#673B16"} width={"68px"} paddingTop={"5px"} paddingBottom={"5px"} borderRadius={"5px"}>
             <Text>
               {days}
             </Text>
@@ -485,7 +459,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }: { days: number, 
               Hari
             </Text>
           </VStack>
-          <VStack spacing={"0.01"} bgColor={"orange.900"} width={"68px"} paddingTop={"5px"} paddingBottom={"5px"} borderRadius={"5px"}>
+          <VStack spacing={"0.01"} bgColor={"#673B16"} width={"68px"} paddingTop={"5px"} paddingBottom={"5px"} borderRadius={"5px"}>
             <Text>
               {hours}
             </Text>
@@ -493,7 +467,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }: { days: number, 
               Jam
             </Text>
           </VStack>
-          <VStack spacing={"0.01"} bgColor={"orange.900"} width={"68px"} paddingTop={"5px"} paddingBottom={"5px"} borderRadius={"5px"}>
+          <VStack spacing={"0.01"} bgColor={"#673B16"} width={"68px"} paddingTop={"5px"} paddingBottom={"5px"} borderRadius={"5px"}>
             <Text>
               {minutes}
             </Text>
@@ -501,7 +475,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }: { days: number, 
               Menit
             </Text>
           </VStack>
-          <VStack spacing={"0.01"} bgColor={"orange.900"} width={"68px"} paddingTop={"5px"} paddingBottom={"5px"} borderRadius={"5px"}>
+          <VStack spacing={"0.01"} bgColor={"#673B16"} width={"68px"} paddingTop={"5px"} paddingBottom={"5px"} borderRadius={"5px"}>
             <Text>
               {seconds}
             </Text>

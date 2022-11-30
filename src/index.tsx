@@ -10,6 +10,7 @@ import {
   RouterProvider,
 } from "react-router-dom"
 import { NotFound } from "./views/NotFound"
+import "react-image-lightbox/style.css";
 
 
 const container = document.getElementById("root")

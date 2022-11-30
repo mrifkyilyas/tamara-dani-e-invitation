@@ -5,7 +5,7 @@ const ProfileUndangan =
     "orangTuaWanita": "Putri Kedua dari Bapak Prastowo Surtarno Sofyan dan Ibu Ami Avianti",
     "pengantinPria": "Muhamad Ramdani",
     "orangTuaPria": "Putra Pertama dari Bapak Husin Rodi dan Ibu Siti Nurdiyani",
-    "tanggalAkad": "31 Desember 2022",
+    "tanggalAkad": "Sabtu, 31 Desember 2022",
     "jamAkad": "08.00 - 10.00 WIB",
     "jamResepsi": "11.00 - 15.00 WIB",
     "tempatAcara": "Villa Dangau Arco",

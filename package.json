@@ -28,6 +28,7 @@
     "react-countdown": "^2.3.2",
     "react-dom": "^18.1.0",
     "react-icons": "^3.0.0",
+    "react-image-lightbox": "^5.1.4",
     "react-qr-code": "^2.0.8",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",

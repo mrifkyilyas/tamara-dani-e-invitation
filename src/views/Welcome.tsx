@@ -55,13 +55,13 @@ const Welcome = () => {
             <Text color={'#222222'} fontSize="14" fontFamily={"Lora"}>
               Kepada,
             </Text>
-            <Text  color={'#222222'} fontSize="22" fontFamily={"Lora-italic"} fontWeight={"bold"} textColor={"orange.900"}>
+            <Text  color={'#222222'} fontSize="22" fontFamily={"Lora-italic"} fontWeight={"bold"} textColor={"#673B16"}>
               {data?.name}
             </Text >
           </VStack>
         </VStack>
         <Button
-          bgColor={"orange.900"}
+          bgColor={"#673B16"}
           width={"80%"}
           height={"3rem"}
           rounded={"full"}

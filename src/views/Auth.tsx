@@ -52,9 +52,7 @@ const useAuth = () => {
             }
             const response = await MessageBoxApi.isHaveMessageBox(slug);
             if (response) {
-                console.log(response.data, 'woooyyy');
                 setIsHaveSubmitMessage(response.data.isHaveMessage);
-                console.log(isHaveSubmitMessage, 'isHaveSubmitMessage');
             }
         } catch (error) {
            throw new Error("Error get is have submit message");
