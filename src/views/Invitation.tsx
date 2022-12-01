@@ -348,7 +348,7 @@ export function Invitation() {
                               color: 'whiteAlpha.900'
                             }}
                             isLoading={loadingForm}
-                          >Submit</SubmitButton>
+                          >Kirim</SubmitButton>
                         </Box>
                       )}
                     </Formik>
