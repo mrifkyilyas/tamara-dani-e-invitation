@@ -2,9 +2,9 @@ import {
   Container,
   Text,
   Button,
-  Box,
   Image,
   VStack,
+  Center,
 } from '@chakra-ui/react';
 import RightPatternHeader from './../assets/RightPatternHeader.svg';
 import LeftPatternHeader from './../assets/LeftPatternHeader.svg';
@@ -25,7 +25,8 @@ const Welcome = () => {
 
   const navigate = useNavigate();
   return (
-    loading ? <Loading/> : <Container padding={"0"} margin={"auto"} height={"96vh"} position={"fixed"} 
+    
+    loading ? <Loading/> : <Center><Container  maxWidth={"420px"} padding={"0"} margin={"auto"}
       backgroundColor={"white"} style={
         {
           backgroundImage: `url(${RightPatternHeader}),
@@ -37,6 +38,11 @@ const Welcome = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "right top, left top, center top, right bottom, left bottom, center",
           backgroundSize: "auto, auto, auto, auto, auto, cover", 
+          bottom: "0",
+          top: "0",
+          position: "fixed",
+          
+         
         }
       }>
       <VStack
@@ -86,6 +92,7 @@ const Welcome = () => {
           <Image src={RightWayang} objectFit='cover' />
         </Flex> */}
     </Container>
+    </Center>
   );
 }
 
