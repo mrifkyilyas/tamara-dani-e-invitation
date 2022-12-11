@@ -1,1 +1,1 @@
-export const API_SERVER = "https://nest-wedding-ticket-api.herokuapp.com/api/";
+export const API_SERVER = "https://wedding-ticket-api-5hin2cwf7q-et.a.run.app/api/";
