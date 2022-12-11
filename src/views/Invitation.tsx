@@ -176,6 +176,9 @@ export function Invitation() {
                       {ProfileUndangan.orangTuaWanita}
                     </Text >
                   </VStack>
+                  <Text width={"90%"} color={'#222222'} fontSize="18" fontFamily={"Lora-italic"} textColor={"#673B16"}>
+                      dengan
+                    </Text>
                   <VStack>
                     <Text color={'#222222'} fontSize="18" fontFamily={"Lora"} fontWeight={"bold"} textColor={"#673B16"}>
                       {ProfileUndangan.pengantinPria}
