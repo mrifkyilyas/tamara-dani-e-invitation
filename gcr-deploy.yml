@@ -7,8 +7,6 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCR_PROJECT }}
-  RUN_REGION: us-central1
-  SERVICE_NAME: medium-react-app
 
 jobs:
   build:
@@ -22,7 +20,7 @@ jobs:
       - name: Setup Node.js (NPM)
         uses: actions/setup-node@master
         with:
-          node-version: '12.x'
+          node-version: '14.x'
 
       - name: Use cached node_modules
         uses: actions/cache@master
