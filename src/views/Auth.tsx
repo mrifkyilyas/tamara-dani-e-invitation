@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import InvitationApi, { IInvitation } from '../api/invitation';
 import { useNavigate, useParams } from 'react-router-dom';
 import MessageBoxApi from '../api/message-box';
+const BackgroundMusic = require('./music.mp3')
 
 const capitalize = (s: string) => {
     if (typeof s !== 'string') return ''
@@ -64,7 +65,7 @@ const useAuth = () => {
         getDetailInvitation();
     }, []);
 
-    return { loading, found, data, isHaveSubmitMessage, setIsHaveSubmitMessage };
+    return { loading, found, data, isHaveSubmitMessage, setIsHaveSubmitMessage, BackgroundMusic };
 }
 
 export default useAuth

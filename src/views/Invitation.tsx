@@ -59,11 +59,9 @@ import * as Yup from "yup";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import useSound from 'use-sound'
-const BackgroundMusic = require('./music.mp3')
-
 
 export function Invitation() {
-  const { loading, found, data, isHaveSubmitMessage, setIsHaveSubmitMessage } = useAuth();
+  const { loading, found, data, isHaveSubmitMessage, setIsHaveSubmitMessage, BackgroundMusic } = useAuth();
   const [loadingForm, setLoadingForm] = useState(false);
   const hDay = new Date(ProfileUndangan.hDay);
   const [isPlaying, setIsPlaying] = useState(false);
