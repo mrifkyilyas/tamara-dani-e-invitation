@@ -17,6 +17,7 @@ import {
   ModalBody,
 } from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons'
+import { MdPause, MdPlayArrow } from 'react-icons/md'
 import CenterPatternHeaderInvitation from './../assets/CenterPatternHeaderInvitation.svg';
 import Background from './../assets/Background.svg';
 import Logo from './../assets/Logo.svg';
@@ -42,7 +43,7 @@ import Slideshow4 from './../assets/slideshow-4.jpg';
 import Slideshow5 from './../assets/slideshow-5.jpg';
 import "./../styles.css";
 import QRCode from 'react-qr-code';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useAuth from './Auth';
 import { Loading } from './Loading';
 import Countdown from 'react-countdown';
@@ -57,13 +58,25 @@ import {
 import * as Yup from "yup";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
-
+import useSound from 'use-sound'
+const BackgroundMusic = require('./music.mp3')
 
 
 export function Invitation() {
   const { loading, found, data, isHaveSubmitMessage, setIsHaveSubmitMessage } = useAuth();
   const [loadingForm, setLoadingForm] = useState(false);
   const hDay = new Date(ProfileUndangan.hDay);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [play, { pause }] = useSound(BackgroundMusic);
+  const handleMusic = () => {
+    if (isPlaying) {
+      pause();
+      setIsPlaying(false);
+    } else {
+      play();
+      setIsPlaying(true);
+    }
+  }
 
   const initialValues = {
     message: "",
@@ -177,8 +190,8 @@ export function Invitation() {
                     </Text >
                   </VStack>
                   <Text width={"90%"} color={'#222222'} fontSize="18" fontFamily={"Lora-italic"} textColor={"#673B16"}>
-                      dengan
-                    </Text>
+                    dengan
+                  </Text>
                   <VStack>
                     <Text color={'#222222'} fontSize="18" fontFamily={"Lora"} fontWeight={"bold"} textColor={"#673B16"}>
                       {ProfileUndangan.pengantinPria}
@@ -235,7 +248,7 @@ export function Invitation() {
                 </Text>
                 <HStack>
                   <VStack spacing={3}>
-                    <Image onClick={() => handleOpenLightBox(0)} src={Image1} borderRadius="10px" loading={"lazy"} fit={"cover"}/>
+                    <Image onClick={() => handleOpenLightBox(0)} src={Image1} borderRadius="10px" loading={"lazy"} fit={"cover"} />
                     <Image onClick={() => handleOpenLightBox(1)} src={Image2} borderRadius="10px" loading={"lazy"} fit={"cover"} />
                   </VStack>
                   <VStack spacing={3}>
@@ -430,6 +443,33 @@ export function Invitation() {
               />
             )
           }
+          <Box
+            position='fixed'
+            bottom='3vh'
+            bgColor={"#673B16"}
+            borderRadius='full'
+            color={"whiteAlpha.900"}
+            right={['16px', '84px']}
+            _hover={{
+              bg: 'orange.800',
+              color: 'whiteAlpha.900'
+            }}
+            _active={{
+              bg: 'orange.700',
+              transform: 'scale(0.95)',
+              color: 'whiteAlpha.900'
+            }}
+            onClick={() => handleMusic()}
+            padding="12px"
+            zIndex={3}>
+            {
+              isPlaying ?
+                <MdPause />
+                :
+                <MdPlayArrow />
+            }
+            {/* </Button> */}
+          </Box>
         </>
 
       </Container >
